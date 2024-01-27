@@ -5,9 +5,9 @@ CREATE TABLE IF NOT EXISTS students (
     studentID INT AUTO_INCREMENT PRIMARY KEY,
     studentName VARCHAR(255) NOT NULL,
     studentEmail VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     courseName VARCHAR(255) NOT NULL,
     enrollmentDate timestamp NULL DEFAULT NULL, 
-    courseDuration VARCHAR(255) NOT NULL
     created_at timestamp NULL NOT NULL, 
     created_by VARCHAR(255) NOT NULL,
     updated_at timestamp NULL DEFAULT NULL, 
