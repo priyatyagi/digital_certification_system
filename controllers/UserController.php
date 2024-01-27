@@ -1,5 +1,6 @@
 <?php
 
+require_once 'models/UserModel.php';
 class UserController {
     public function showRegistrationForm() {
         // Include the registration view
@@ -22,6 +23,24 @@ class UserController {
             header('Location: index.php?registration=success');
         } else {
             header('Location: index.php?registration=failure');
+        }
+    }
+    public function generateCertificate($studentId) {
+        $userModel = new UserModel();
+        $certificateHash = $userModel->generateCertificate($studentId);
+
+        // Load the certificate view
+        include('certificate_view.php');
+    }
+
+    public function verifyCertificate($studentId, $certificateHash) {
+        $userModel = new UserModel();
+        $isValid = $userModel->verifyCertificate($studentId, $certificateHash);
+
+        if ($isValid) {
+            echo "Certificate is valid!";
+        } else {
+            echo "Certificate is not valid!";
         }
     }
 }
