@@ -47,19 +47,19 @@ class UserModel {
         // Generate a unique hash for the certificate (can be a combination of student details)
         $certificateHash = md5(serialize($student));
 
-        // Update the database with the certificate hash
-        $updateStmt = $this->db->getConnection()->prepare("UPDATE students SET certificate_hash = :hash WHERE id = :id");
-        $updateStmt->bindParam(':hash', $certificateHash);
-        $updateStmt->bindParam(':id', $studentId);
-        $updateStmt->execute();
+        $stmt = $conn->prepare("INSERT INTO certifictaes (issuedTo, issueDate, certificate_hash, created_at) VALUES (:studentId, 'now()', :certificate_hash, 'now");
+
+        $stmt->bindParam(':hash', $certificateHash);
+        $stmt->bindParam(':id', $studentId);
+        $stmt->execute();
 
         return $certificateHash;
     }
 
     public function verifyCertificate($studentId, $certificateHash) {
         // Fetch the stored hash from the database
-        $stmt = $this->db->getConnection()->prepare("SELECT certificate_hash FROM students WHERE id = :id");
-        $stmt->bindParam(':id', $studentId);
+        $stmt = $this->db->getConnection()->prepare("SELECT certificate_hash FROM certifictaes WHERE issuedTo = :studentId");
+        $stmt->bindParam(':issuedTo', $studentId);
         $stmt->execute();
         $storedHash = $stmt->fetchColumn();
 

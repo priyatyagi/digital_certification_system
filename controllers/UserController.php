@@ -30,7 +30,7 @@ class UserController {
         $certificateHash = $userModel->generateCertificate($studentId);
 
         // Load the certificate view
-        include('certificate_view.php');
+        include('views/certificate_view.php');
     }
 
     public function verifyCertificate($studentId, $certificateHash) {
